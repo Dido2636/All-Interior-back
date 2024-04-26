@@ -1,4 +1,3 @@
-
 import { Schema, mongoose } from "mongoose";
 
 const mediaSchema = new Schema({
@@ -9,6 +8,7 @@ const mediaSchema = new Schema({
   pdfMedia: String,   
   viewUrl: String,
   author: { type: Schema.Types.ObjectId, ref: "User" },
+  // orderedBy: { type: Schema.Types.ObjectId, ref: "User" },
   commentaire: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   createAt: {type:Date, default:Date.now()}
 });

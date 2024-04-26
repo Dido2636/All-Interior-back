@@ -38,8 +38,8 @@ export const createMedia = async (req, res) => {
   try {
     if (isAdmin) {
       const { title, description, sousDescription, viewUrl } = req.body;
-      if (!req.file) {
-        return res.status(400).json({ message: "No file uploaded" });
+      if (!title || !req.file) {
+        return res.status(400).json({ message: "No file and title uploaded" });
       }
       const imageMedia = req.file.filename;
       const createAt = new Date();
@@ -163,6 +163,8 @@ export const deleteCommentInMedia = async (req, res) => {
 
     media.commentaire.pull(comment._id);
     await media.save();
+
+    await Comment.findByIdAndDelete(comment._id);
 
     res.status(200).json({ media, message: "Comment Deleted" });
   } catch (error) {
